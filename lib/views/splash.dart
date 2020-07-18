@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trellotesttask/utils/shared_preferences.dart';
 
 class SplashPage extends StatefulWidget {
+  static const routeName = '/';
   @override
   State<StatefulWidget> createState() => _SplashPageState();
 }

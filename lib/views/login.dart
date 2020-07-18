@@ -1,11 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:trellotesttask/utils/failure.dart';
 import 'package:trellotesttask/utils/shared_preferences.dart';
 import 'package:trellotesttask/utils/token_storage.dart';
 
 class LoginPage extends StatefulWidget {
+  static const routeName = '/login';
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -15,12 +15,22 @@ class _LoginPageState extends State<LoginPage> {
   final _tfPasswordController = TextEditingController();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   ThemeData theme;
+  bool loginAgain;
   var loading = false;
 
   @override
   Widget build(BuildContext context) {
     theme = Theme.of(context);
+    loginAgain = ModalRoute.of(context).settings.arguments;
     final widgetsWidth = 300.0;
+    if (loginAgain ?? false)
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _scaffoldKey.currentState.showSnackBar(SnackBar(
+          content: Text("Please log in again"),
+          duration: Duration(seconds: 1),
+          backgroundColor: theme.primaryColorDark,
+        ));
+      });
     return Scaffold(
       key: _scaffoldKey,
       body: Center(

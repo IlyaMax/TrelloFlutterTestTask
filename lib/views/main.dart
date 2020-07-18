@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trellotesttask/blocs/card_bloc.dart';
@@ -9,6 +7,8 @@ import 'package:trellotesttask/utils/failure.dart';
 import 'package:trellotesttask/utils/shared_preferences.dart';
 
 class MainPage extends StatefulWidget {
+  static const routeName = '/main';
+
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -81,15 +81,10 @@ class _MainPageState extends State<MainPage> {
                 },
               );
             } else if (snapshot.error is TokenExpiredFailure) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                Scaffold.of(context).showSnackBar(SnackBar(
-                  content: Text("Please log in again"),
-                  duration: Duration(seconds: 1),
-                  backgroundColor: theme.primaryColorDark,
-                ));
+              WidgetsBinding.instance.addPostFrameCallback((_) async {
                 final sPref = SharedPreferencesData();
-                sPref.setAppStatusInfo(AppStatus.INIT);
-                Navigator.pushReplacementNamed(context, "/login");
+                await sPref.setAppStatusInfo(AppStatus.INIT);
+                Navigator.pushReplacementNamed(context, "/login", arguments: true);
               });
               return SizedBox.shrink();
             } else {

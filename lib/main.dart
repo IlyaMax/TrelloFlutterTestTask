@@ -18,11 +18,11 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.teal[200],
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: '/',
+      initialRoute: SplashPage.routeName,
       routes: {
-        '/': (context) => SplashPage(),
-        '/login': (context) => LoginPage(),
-        '/main': (context) => MainPage(),
+        SplashPage.routeName: (context) => SplashPage(),
+        LoginPage.routeName: (context) => LoginPage(),
+        MainPage.routeName: (context) => MainPage(),
       },
     );
   }
